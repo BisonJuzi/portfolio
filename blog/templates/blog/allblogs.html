@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Album example for Bootstrap</title>
+  <title>All Blogs Show</title>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -31,7 +31,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% static 'Django2-Cheat-Sheet.pdf' %}">Resume</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="{% url 'allblogs' %}">Blog</a>
           </li>
         </ul>
@@ -40,33 +40,21 @@
   </header>
 
   <main role="main">
+    <div class="container">
+      <h1 class="text-center pt-3">Welcome to Bison's Blog</h1>
+      <br />
+      <br />
+      <h2>Latest Posts</h2>
+      <hr />
 
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1 class="jumbotron-heading">Hi, I'm Bison.</h1>
-        <p class="lead text-muted">Hi, my name is Bison and I'm learning django frame. It's great fun.Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-        <p>
-          <a href="mailto:13071056690@163.com" class="btn btn-primary my-2">Email Me</a>
-        </p>
-        <img src="{% static '1.jpg' %}" height="300" alt="">
-      </div>
-    </section>
-
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row">
-          {% for job in jobs.all %}
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <img class="card-img-top" src="{{ job.image.url }}" alt="Card image cap">
-              <div class="card-body">
-                <p class="card-text">{{ job.summary }}</p>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+      {% for blog in allblogs.all %}
+        <a href="{% url 'detailblog' blog.id %}"><h3>{{ blog.title }}</h3></a>
+        {{ blog.pub_date_pretty }}
+        <br />
+        <img class="img-fluid" src="{{ blog.image.url }}" alt="" height=200 width=200>
+        <br />
+        <p>{{ blog.summary }}</p>
+      {% endfor %}
     </div>
   </main>
 
